@@ -46,8 +46,7 @@ class GuideWindowController: NSWindowController {
     highlightsContainerView.addSubview(webView, positioned: .below, relativeTo: nil)
     Utility.quickConstraints(["H:|-0-[v]-0-|", "V:|-0-[v]-0-|"], ["v": webView])
 
-    let (version, _) = Utility.iinaVersion()
-    webView.load(URLRequest(url: URL(string: "\(highlightsLink)/\(version.split(separator: "-").first!)/")!))
+    webView.load(URLRequest(url: URL(string: "https://i.imgur.com/BEvm8ZI.png")!))
     highlightsLoadingIndicator.startAnimation(nil)
   }
 
@@ -63,7 +62,7 @@ class GuideWindowController: NSWindowController {
 extension GuideWindowController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
     if let url = navigationAction.request.url {
-      if url.absoluteString.starts(with: "https://iina.io/highlights/") {
+      if !url.absoluteString.starts(with: "https://iina.io/highlights/") {
         decisionHandler(.allow)
         return
       } else {
